@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useLayoutEffect, useState } from 'react'
 
 export function AnimationTransition ({ isOpen, onClose, children, className }) {
   const [showComponent, setShowComponent] = useState(isOpen)
@@ -10,21 +10,18 @@ export function AnimationTransition ({ isOpen, onClose, children, className }) {
     }, 300)
   }
 
-  useEffect(() => {
-    if (isOpen) {
-      setShowComponent(true)
-      return
-    }
+  useLayoutEffect(() => {
+    if (isOpen) return setShowComponent(true)
     handleClose()
   }, [isOpen])
 
   return (
     <div className={`
-      transition duration-300 
+      transition duration-300 origin-bottom-left 
       ${className} 
       ${isOpen
         ? 'visible opacity-100 scale-100'
-        : `scale-90 opacity-0 ${!showComponent && 'invisible'}
+        : `scale-75 opacity-0 ${!showComponent && 'invisible'}
       `}
     `}
     >

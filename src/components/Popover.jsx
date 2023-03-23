@@ -1,10 +1,10 @@
-import { useEffect, useRef } from 'react'
+import { useLayoutEffect, useRef } from 'react'
 import { AnimationTransition } from './AnimationTransition'
 
 export function Popover ({ btnComponent, children, title, open, onClose }) {
   const wrapperRef = useRef()
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     function handleClickOutside (event) {
       if (wrapperRef.current && !wrapperRef.current.contains(event.target)) {
         onClose(false)
@@ -23,10 +23,13 @@ export function Popover ({ btnComponent, children, title, open, onClose }) {
       <AnimationTransition
         isOpen={open}
         onClose={onClose}
-        className='absolute bottom-[140%] left-0 space-y-4 p-4 rounded-lg bg-neutral-800 border border-neutral-700 w-96 max-h-[600px] overscroll-y-auto'
+        className='
+          absolute bottom-[140%] left-0 flex flex-col gap-4 rounded-xl bg-neutral-900 border border-neutral-700
+          overflow-hidden
+        '
       >
-        <header>
-          <h1 className='font-semibold text-2xl text-center'>{title}</h1>
+        <header className='bg-neutral-800'>
+          <h1 className='font-semibold text-2xl text-center py-4 leading-9'>{title}</h1>
         </header>
         {children}
       </AnimationTransition>

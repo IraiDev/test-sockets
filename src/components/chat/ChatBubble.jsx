@@ -24,9 +24,7 @@ export function ChatBubble ({ user: loginUser = '', openChat, closeChat }) {
 
   useEffect(() => {
     if (loginUser === '') return
-    const socketConnection = io('https://test.zpruebas.cl', {
-      path: '/prueba-socket/'
-    })
+    const socketConnection = io('https://test-backend.zpruebas.cl')
     setSocket(socketConnection)
     const userConnectionId = uuid()
     setUser({ id: userConnectionId, userName: loginUser })

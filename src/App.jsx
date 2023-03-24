@@ -28,7 +28,7 @@ function App () {
           </h1>}
       </header>
       <div className='flex flex-col gap-2 p-4 rounded-lg bg-neutral-800 w-96'>
-        <label className='text-sm'>Seleccione un usuario</label>
+        <label className='text-sm'>Seleccione un usuario:</label>
         <ul className='space-y-2'>
           {USERS.filter(item => item.userName !== user).map(({ userName, name }) => (
             <li key={userName}>

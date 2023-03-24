@@ -6,7 +6,9 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "replace": "rsync -a ../../front-end/test-sockets ../../front-end/test-sockets-respaldo",
+    "gg-build": "npm run replace && npm run build"
   },
   "dependencies": {
     "react": "^18.2.0",

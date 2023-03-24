@@ -6,6 +6,8 @@ import { Popover } from '../Popover'
 import { ChatWrapper } from './ChatWrapper'
 import { MessageSender } from './MessageSender'
 import { TbMessageCircle } from 'react-icons/tb'
+import { ChatHeader } from './ChatHeader'
+import { Groups } from './Groups'
 
 export function ChatBubble ({ user: loginUser = '', openChat, closeChat }) {
   const { setUser, user } = useUserStore()
@@ -54,6 +56,8 @@ export function ChatBubble ({ user: loginUser = '', openChat, closeChat }) {
       onClose={handleClose}
       btnComponent={<Btn isOpen={isOpen} onClick={setIsOpen} />}
     >
+      <ChatHeader title={loginUser} />
+      <Groups />
       <ChatWrapper chats={chats} />
       <MessageSender onClick={handleSendMessage} />
     </Popover>

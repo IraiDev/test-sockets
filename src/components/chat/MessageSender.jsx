@@ -18,7 +18,7 @@ export function MessageSender ({ onClick }) {
   }
 
   return (
-    <footer className='p-2'>
+    <footer className='p-2 pl-14'>
       <form onSubmit={handleSendMessage} className='flex items-center gap-2 p-3 bg-neutral-800 rounded-lg shadow-lg'>
         <input
           ref={inputRef}

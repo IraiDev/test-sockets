@@ -16,7 +16,7 @@ export function ChatWrapper ({ chats = [] }) {
   return (
     <div
       ref={scrollRef}
-      className='flex flex-col gap-2 h-[450px] w-96 scroll-app bg-neutral-900 px-3 py-1'
+      className='flex flex-col gap-2 h-[450px] w-96 scroll-app bg-neutral-900 pr-3 pl-14 py-1'
     >
       {
         chats.map(({ content, id, user }) => (

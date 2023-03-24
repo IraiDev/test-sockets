@@ -1,8 +1,7 @@
 import { useLayoutEffect, useRef } from 'react'
-import { FaUserCircle } from 'react-icons/fa'
 import { AnimationTransition } from './AnimationTransition'
 
-export function Popover ({ btnComponent, children, title, open, onClose }) {
+export function Popover ({ btnComponent, children, open, onClose }) {
   const wrapperRef = useRef()
 
   useLayoutEffect(() => {
@@ -29,10 +28,6 @@ export function Popover ({ btnComponent, children, title, open, onClose }) {
           overflow-hidden
         '
       >
-        <header className='bg-neutral-800 flex justify-center items-center gap-2'>
-          <FaUserCircle className='text-3xl text-neutral-400' />
-          <h1 className='font-semibold text-2xl text-center py-4 leading-9'>{title}</h1>
-        </header>
         {children}
       </AnimationTransition>
     </div>

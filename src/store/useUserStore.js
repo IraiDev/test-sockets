@@ -2,7 +2,8 @@ import { create } from 'zustand'
 
 const INITI_USER = {
   id: '',
-  userName: ''
+  userName: '',
+  name: ''
 }
 
 export const useUserStore = create()((set) => ({

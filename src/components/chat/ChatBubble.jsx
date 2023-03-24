@@ -3,19 +3,23 @@ import { v4 as uuid } from 'uuid'
 import io from 'socket.io-client'
 import { useUserStore } from '../../store/useUserStore'
 import { Popover } from '../Popover'
-import { ChatContainer } from './ChatContainer'
-import MessageSender from './MessageSender'
+import { ChatWrapper } from './ChatWrapper'
+import { MessageSender } from './MessageSender'
 import { TbMessageCircle } from 'react-icons/tb'
 
-export function ChatBubble ({ user: loginUser = '' }) {
+export function ChatBubble ({ user: loginUser = '', openChat, closeChat }) {
   const { setUser, user } = useUserStore()
   const [isOpen, setIsOpen] = useState(false)
   const [socket, setSocket] = useState(null)
   const [chats, setChats] = useState([])
-  // bcec86a9-7183-4f37-bf67-2150c5a1bb2e e2eac2e7-c4bf-43d2-a230-5135e75ad1a8 8265186a-f538-4589-a6ca-21294e092ab9
 
   const handleSendMessage = (message) => {
     socket.emit('chat', { content: message, user: { userName: user.userName } })
+  }
+
+  const handleClose = (value) => {
+    closeChat(value)
+    setIsOpen(value)
   }
 
   useEffect(() => {
@@ -38,14 +42,19 @@ export function ChatBubble ({ user: loginUser = '' }) {
     })
   }, [socket])
 
+  useEffect(() => {
+    if (!openChat) return
+    setIsOpen(openChat)
+  }, [openChat])
+
   return (
     <Popover
       open={isOpen}
-      title='Chat bot'
-      onClose={setIsOpen}
+      title={loginUser}
+      onClose={handleClose}
       btnComponent={<Btn isOpen={isOpen} onClick={setIsOpen} />}
     >
-      <ChatContainer chats={chats} />
+      <ChatWrapper chats={chats} />
       <MessageSender onClick={handleSendMessage} />
     </Popover>
   )

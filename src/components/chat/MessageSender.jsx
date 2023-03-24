@@ -1,7 +1,7 @@
 import { useRef } from 'react'
 import { TbSend } from 'react-icons/tb'
 
-export default function MessageSender ({ onClick }) {
+export function MessageSender ({ onClick }) {
   const message = useRef(null)
   const inputRef = useRef(null)
 

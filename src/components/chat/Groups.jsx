@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { MdSupervisedUserCircle } from 'react-icons/md'
+import { HiPlus } from 'react-icons/hi'
 
 const animationStyles = (isOpen) => {
   return `opacity-0 min-w-max group-hover:opacity-100 group-hover:delay-200 
@@ -12,7 +13,7 @@ export function Groups () {
   const handleToggleIsOpen = (value) => {
     setTimeout(() => {
       setIsOpen(value)
-    }, 200)
+    }, 150)
   }
 
   return (
@@ -24,16 +25,51 @@ export function Groups () {
         ${isOpen ? 'pt-8' : 'pt-20'}
       `}
     >
-      <h3 className={`pb-5 px-3 text-lg font-bold ${animationStyles(isOpen)}`}>Grupos</h3>
+      <CreateGroup isOpen={isOpen} />
       <ul
         className={`
-          w-[47px] group-hover:w-60 transition-[width] duration-300 hover:scroll-app overflow-hidden
-          ${isOpen ? 'h-[calc(100%-85px)]' : 'h-[calc(100%-37px)]'}
+          w-[47px] group-hover:w-60 transition-[width] duration-[600ms] hover:scroll-app overflow-hidden
+          ${isOpen ? 'h-[calc(100%-105px)]' : 'h-[calc(100%-57px)]'}
         `}
       >
         {Array.from({ length: 20 }).map((_, idx) => (<Item key={idx} isOpen={isOpen} />))}
       </ul>
+      <NewChat isOpen={isOpen} />
     </aside>
+  )
+}
+
+function CreateGroup ({ isOpen }) {
+  return (
+    <header className={`flex justify-between items-center gap-2 pb-5 px-3 ${animationStyles(isOpen)}`}>
+      <h3 className='text-lg font-bold'>Grupos</h3>
+      <button
+        className='
+          flex items-center gap-2 text-sm bg-emerald-600 hover:bg-emerald-500 text-white
+          rounded-md px-1.5 py-0.5 transition-colors duration-200
+        '
+      >
+        <HiPlus />
+        Crear grupo
+      </button>
+    </header>
+  )
+}
+
+function NewChat ({ isOpen }) {
+  return (
+    <footer className='w-full flex items-center h-[60px]'>
+      <button
+        className={`
+          flex items-center justify-center gap-2 bg-transparent hover:bg-neutral-700 text-white 
+          px-2 py-2 w-full transition-colors
+          ${animationStyles(isOpen)}
+        `}
+      >
+        <HiPlus />
+        Nuevo chat
+      </button>
+    </footer>
   )
 }
 
@@ -41,7 +77,8 @@ function Item ({ isOpen }) {
   return (
     <li
       className='
-        flex items-center gap-3 border-b p-2 border-neutral-700 hover:bg-neutral-700 cursor-pointer w-full
+        flex items-center gap-3 border-b p-2 border-neutral-700 hover:bg-neutral-700
+        cursor-pointer w-full transition-colors duration-200
       '
     >
       <MdSupervisedUserCircle className='text-3xl text-neutral-400 min-w-[30px]' />

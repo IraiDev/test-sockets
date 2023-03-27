@@ -11,7 +11,7 @@ export function Message ({ user, content }) {
   const messageType = loggedUser.userName === user.userName ? 'sended' : 'received'
 
   return (
-    <div
+    <li
       className={`
         p-2 rounded-md max-w-[80%] h-auto whitespace-pre-wrap break-words
         flex flex-col gap-1
@@ -20,6 +20,6 @@ export function Message ({ user, content }) {
     >
       <small>{user.userName}</small>
       <span>{content}</span>
-    </div>
+    </li>
   )
 }

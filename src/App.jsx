@@ -15,7 +15,7 @@ function App () {
 
   const handleLogin = (user) => {
     setUser(user)
-    setIsChatOpen(true)
+    // setIsChatOpen(true)
   }
 
   return (

@@ -1,5 +1,4 @@
 import { useLayoutEffect, useRef } from 'react'
-
 import { Message } from './Message'
 
 export function ChatWrapper ({ chats = [] }) {

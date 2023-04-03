@@ -7,7 +7,7 @@ const animationStyles = (isOpen) => {
   ${isOpen ? 'block' : 'hidden'}`
 }
 
-export function Groups () {
+export function Groups ({ chats = [] }) {
   const [isOpen, setIsOpen] = useState(false)
 
   const handleToggleIsOpen = (value) => {
@@ -32,7 +32,7 @@ export function Groups () {
           ${isOpen ? 'h-[calc(100%-105px)]' : 'h-[calc(100%-57px)]'}
         `}
       >
-        {Array.from({ length: 20 }).map((_, idx) => (<Item key={idx} isOpen={isOpen} />))}
+        {chats.map((chat) => (<Item key={chat.id} chat={chat} isOpen={isOpen} />))}
       </ul>
       <NewChat isOpen={isOpen} />
     </aside>
@@ -73,7 +73,7 @@ function NewChat ({ isOpen }) {
   )
 }
 
-function Item ({ isOpen }) {
+function Item ({ isOpen, chat }) {
   return (
     <li
       className='
@@ -85,7 +85,7 @@ function Item ({ isOpen }) {
       <span
         className={animationStyles(isOpen)}
       >
-        administracion andes
+        {chat.name}
       </span>
     </li>
   )

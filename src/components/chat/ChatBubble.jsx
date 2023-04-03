@@ -1,15 +1,14 @@
 import { useEffect, useLayoutEffect, useState } from 'react'
-import { v4 as uuid } from 'uuid'
 import io from 'socket.io-client'
 import { useUserStore } from '../../store/useUserStore'
 import { Popover } from '../Popover'
-import { ChatWrapper } from './ChatWrapper'
 import { MessageSender } from './MessageSender'
 import { TbMessageCircle } from 'react-icons/tb'
 import { ChatHeader } from './ChatHeader'
+import { ChatWrapper } from './ChatWrapper'
 import { Groups } from './Groups'
 
-export function ChatBubble ({ user: loginUser = '', openChat, closeChat }) {
+export function ChatBubble ({ user: innerUser = null, openChat, closeChat }) {
   const { setUser, user } = useUserStore()
   const [isOpen, setIsOpen] = useState(false)
   const [socket, setSocket] = useState(null)
@@ -27,22 +26,23 @@ export function ChatBubble ({ user: loginUser = '', openChat, closeChat }) {
   }
 
   useEffect(() => {
-    if (loginUser === '') return
-    const socketConnection = io('https://test-backend.zpruebas.cl')
+    if (innerUser === null) return
+    const socketConnection = io('https://chat.zpruebas.cl')
     setSocket(socketConnection)
-    const userConnectionId = uuid()
-    setUser({ id: userConnectionId, userName: loginUser })
-    socketConnection.emit('login', loginUser)
+    setUser({ id: innerUser.id, token: innerUser.token, name: innerUser.name })
+    socketConnection.emit('server:logged-in', innerUser.token)
+    console.log(innerUser)
 
     return () => {
       socketConnection.disconnect()
     }
-  }, [loginUser])
+  }, [innerUser])
 
   useEffect(() => {
     if (socket === null) return
-    socket.on('chat', (data) => {
+    socket.on('client:chatLists', (data) => {
       setChats(data)
+      console.log(data)
     })
   }, [socket])
 
@@ -55,12 +55,10 @@ export function ChatBubble ({ user: loginUser = '', openChat, closeChat }) {
     setIsOpen(openChat)
   }, [openChat])
 
-  console.log(chats.length, prevChatLength, isOpen)
-
   return (
     <Popover
       open={isOpen}
-      title={loginUser}
+      title={innerUser !== null ? innerUser.name : ''}
       onClose={handleClose}
       btnComponent={
         <Btn
@@ -70,9 +68,9 @@ export function ChatBubble ({ user: loginUser = '', openChat, closeChat }) {
         />
       }
     >
-      <ChatHeader title={loginUser} />
-      <Groups />
-      <ChatWrapper chats={chats} />
+      <ChatHeader title={innerUser !== null ? innerUser.name : ''} />
+      <Groups chats={chats} />
+      <ChatWrapper chats={[]} />
       <MessageSender onClick={handleSendMessage} />
     </Popover>
   )

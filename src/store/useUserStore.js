@@ -2,7 +2,7 @@ import { create } from 'zustand'
 
 const INITI_USER = {
   id: '',
-  userName: '',
+  token: '',
   name: ''
 }
 

@@ -8,7 +8,7 @@ const MESSAGE_POSITION = {
 export function Message ({ user, content }) {
   const { user: loggedUser } = useUserStore()
 
-  const messageType = loggedUser.userName === user.userName ? 'sended' : 'received'
+  const messageType = loggedUser.token === user.token ? 'sended' : 'received'
 
   return (
     <li
